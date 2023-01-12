@@ -1,4 +1,5 @@
-import { Ingredient } from './classes/ingredient.js'
+import { Ingredient } from './classes/ingredient.js';
+import { Pizza } from './classes/pizza.js';
 
 window.addEventListener("DOMContentLoaded", function(){
     
@@ -56,12 +57,31 @@ window.addEventListener("DOMContentLoaded", function(){
         list.appendChild(listElt);
     }
     
-    for(let i=0; i<availableIngredients.length; i++){
+    let ingredientsList = document.querySelectorAll("#stage > ul > li > article");
+    
+    let newPizza = null;
+    
+    for(let i=0; i<ingredientsList.length; i++){
         
-        availableIngredients[i].addEventListener("click", function(){
+        ingredientsList[i].addEventListener("click", function(){
             
-            availableIngredients[i].classList.toggle("selected");
-        });
+            ingredientsList[i].classList.toggle("selected");
+            
+            if(newPizza === null){
+                
+                newPizza = new Pizza();
+                
+                if(ingredientsList[i].classList.contains("selected")){
+                    
+                    newPizza.addIngredient();
+                }else{
+                    
+                    newPizza.removeIngredient();
+                }
+                
+                console.log(newPizza)
+            }
+        })
     }
 });
 
