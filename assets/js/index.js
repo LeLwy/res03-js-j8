@@ -49,6 +49,8 @@ window.addEventListener("DOMContentLoaded", function(){
         
         let listEltArticle = document.createElement("article");
         listEltArticle.appendChild(listEltArticleHeader);
+        listEltArticle.setAttribute("ingredient", availableIngredients[i].name);
+        listEltArticle.setAttribute("image", availableIngredients[i].file);
         
         let listElt = document.createElement("li");
         listElt.appendChild(listEltArticle);
@@ -70,28 +72,20 @@ window.addEventListener("DOMContentLoaded", function(){
             if(newPizza === null){
                 
                 newPizza = new Pizza();
-                
-                if(ingredientsList[i].classList.contains("selected")){
-                    
-                    newPizza.addIngredient();
-                }else{
-                    
-                    newPizza.removeIngredient();
-                }
-                
-                console.log(newPizza)
             }
-        })
+                    
+            if(ingredientsList[i].classList.contains("selected") && ingredientsList[i].getAttribute("ingredient") === availableIngredients[i].name){
+                
+                newPizza.addIngredient(availableIngredients[i]);
+                newPizza.displayIngredients();
+                
+            }else{
+                
+                newPizza.removeIngredient(availableIngredients[i]);
+                newPizza.displayIngredients();
+            }
+        });
     }
+    
+    newPizza.cook();
 });
-
-/*<li>
-    <article>
-        <header>
-            <figure>
-                <img src="assets/img/bacon.png" alt="Bacon" />
-            </figure>
-            <h3>Bacon</h3>
-        </header>
-    </article>
-</li>*/
